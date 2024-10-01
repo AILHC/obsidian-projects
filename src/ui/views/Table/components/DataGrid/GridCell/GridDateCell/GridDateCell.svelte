@@ -6,6 +6,7 @@
   import { GridCell } from "..";
   import { TextLabel } from "..";
   import type { GridColDef } from "../../dataGrid";
+  import { isValidDate } from "src/ui/views/helpers";
 
   export let value: Optional<Date>;
   let cachedValue: Optional<Date> = value; // store the proposing value
@@ -14,7 +15,6 @@
   export let rowindex: number;
   export let colindex: number;
   export let selected: boolean;
-
   let edit = false;
 </script>
 
@@ -44,11 +44,13 @@
   <svelte:fragment slot="read">
     {#if value}
       <TextLabel
-        value={new Intl.DateTimeFormat("default", {
-          year: "numeric",
-          month: "numeric",
-          day: "numeric",
-        }).format(value)}
+        value={isValidDate(value)
+          ? value.toString()
+          : new Intl.DateTimeFormat("default", {
+              year: "numeric",
+              month: "numeric",
+              day: "numeric",
+            }).format(value)}
       />
     {/if}
   </svelte:fragment>

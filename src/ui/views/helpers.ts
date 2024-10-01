@@ -100,3 +100,7 @@ export function handleHoverLink(event: MouseEvent, sourcePath: string) {
     });
   }
 }
+
+export function isValidDate(date: Date): boolean {
+  return !isNaN(date.getTime());
+}
